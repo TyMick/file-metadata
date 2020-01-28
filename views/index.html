@@ -120,25 +120,27 @@
 
     <!-- API test script -->
     <script>
-      $("#uploadForm").submit(function() {
-        event.preventDefault();
-        $("#uploadForm > button").attr("disabled", true);
-        $("#uploadForm > button").html(
-          '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><span class="sr-only">Uploading...</span>'
-        );
-        $.ajax({
-          url: "/api/fileanalyse",
-          type: "post",
-          data: new FormData($("#uploadForm")[0]),
-          cache: false,
-          contentType: false,
-          processData: false,
-          success: function(result) {
-            $("#apiOutput").text(JSON.stringify(result, null, 2));
-            hljs.highlightBlock(document.getElementById("apiOutput"));
-            $("#uploadForm > button").html("POST");
-            $("#uploadForm > button").removeAttr("disabled");
-          }
+      $(function() {
+        $("#uploadForm").submit(function() {
+          event.preventDefault();
+          $("#uploadForm > button").attr("disabled", true);
+          $("#uploadForm > button").html(
+            '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><span class="sr-only">Uploading...</span>'
+          );
+          $.ajax({
+            url: "/api/fileanalyse",
+            type: "post",
+            data: new FormData($("#uploadForm")[0]),
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(result) {
+              $("#apiOutput").text(JSON.stringify(result, null, 2));
+              hljs.highlightBlock(document.getElementById("apiOutput"));
+              $("#uploadForm > button").html("POST");
+              $("#uploadForm > button").removeAttr("disabled");
+            }
+          });
         });
       });
     </script>
