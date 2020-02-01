@@ -121,22 +121,22 @@
       $(function() {
         $("#uploadForm").submit(function() {
           event.preventDefault();
-          $("#uploadForm > button").attr("disabled", true);
-          $("#uploadForm > button").html(
+          $("button").attr("disabled", true);
+          $("button", this).html(
             '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><span class="sr-only">Uploading...</span>'
           );
           $.ajax({
             url: "/api/fileanalyse",
             type: "post",
-            data: new FormData($("#uploadForm")[0]),
+            data: new FormData($(this)[0]),
             cache: false,
             contentType: false,
             processData: false,
             success: function(result) {
               $("#apiOutput").text(JSON.stringify(result, null, 2));
               hljs.highlightBlock(document.getElementById("apiOutput"));
-              $("#uploadForm > button").html("POST");
-              $("#uploadForm > button").removeAttr("disabled");
+              $("#uploadForm button").html("POST");
+              $("button").removeAttr("disabled");
             }
           });
         });
